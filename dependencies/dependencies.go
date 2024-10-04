@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func checkAndInstallDependencies() {
+func CheckAndInstallDependencies() {
 	fmt.Println("Checking for required dependencies...")
 
 	if !isCommandAvailable("ffmpeg") {

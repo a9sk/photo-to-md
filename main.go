@@ -4,28 +4,28 @@ import (
 	"fmt"
 	"log"
 	"os"
+
 	//path to dirs
-	/*
-		"photo-to-md/dependancies"
-		"photo-to-md/save"
-		"photo-to-md/capture"
-		"photo-to-md/ocr"
-	*/)
+	"photo-to-md/capture"
+	"photo-to-md/dependencies"
+	"photo-to-md/ocr"
+	"photo-to-md/save"
+)
 
 func main() {
 	isInDocker := os.Getenv("INDOCKER")
 	if isInDocker != "true" {
-		dependancies.checkAndInstallDependencies()
+		dependencies.CheckAndInstallDependencies()
 	}
 
-	imagePath := capture.captureImage()
+	imagePath := capture.CaptureImage()
 
-	text, err := ocr.performOCR(imagePath)
+	text, err := ocr.PerformOCR(imagePath)
 	if err != nil {
 		log.Fatalf("Failed to perform OCR: %v", err)
 	}
 
-	err = save.saveMarkdown(text)
+	err = save.SaveMarkdown(text)
 	if err != nil {
 		log.Fatalf("Failed to save markdown: %v", err)
 	}

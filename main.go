@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -13,12 +14,29 @@ import (
 )
 
 func main() {
+
+	mode := flag.String("mode", "capture", "Mode: new capture or path")
+	path := flag.String("path", "", "Path to the image")
+	flag.Parse()
+
+	if *mode != "capture" && *path == "" {
+		fmt.Println("What are you doing with this flags...")
+		flag.Usage()
+		os.Exit(1)
+	}
+
+	var imagePath string
+
+	if *mode == "capture" {
+		imagePath = capture.CaptureImage()
+	} else {
+		imagePath = *path
+	}
+
 	isInDocker := os.Getenv("INDOCKER")
 	if isInDocker != "true" {
 		dependencies.CheckAndInstallDependencies()
 	}
-
-	imagePath := capture.CaptureImage()
 
 	text, err := ocr.PerformOCR(imagePath)
 	if err != nil {

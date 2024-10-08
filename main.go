@@ -19,7 +19,7 @@ func main() {
 	path := flag.String("path", "", "Path to the image")
 	flag.Parse()
 
-	if *mode != "capture" && *path == "" {
+	if *mode == "path" && *path == "" {
 		fmt.Println("What are you doing with this flags...")
 		flag.Usage()
 		os.Exit(1)

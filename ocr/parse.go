@@ -1,40 +1,69 @@
 package ocr
 
 import (
+	"encoding/xml"
+	"fmt"
+	"photo-to-md/common"
 	"strings"
 )
 
-func parseHOCR(hocr string) []StyledText {
+func parseHOCR(hocr string) ([]common.StyledText, error) {
+
 	lines := strings.Split(hocr, "\n")
-	var styledTexts []StyledText
+
+	var styledTexts []common.StyledText
 
 	for _, line := range lines {
 		if strings.Contains(line, "<b>") {
-			styledTexts = append(styledTexts, StyledText{
-				Text:  extractText(line, "<b>", "</b>"),
+			styledTexts = append(styledTexts, common.StyledText{
+				Text:  extractText(line, "<b>", "</b>") + "\n",
 				Style: "bold",
 			})
 		} else if strings.Contains(line, "<i>") {
-			styledTexts = append(styledTexts, StyledText{
-				Text:  extractText(line, "<i>", "</i>"),
+			styledTexts = append(styledTexts, common.StyledText{
+				Text:  extractText(line, "<i>", "</i>") + "\n",
 				Style: "italic",
 			})
 		} else {
-			styledTexts = append(styledTexts, StyledText{
-				Text:  line,
+			styledTexts = append(styledTexts, common.StyledText{
+				Text:  line + "\n",
 				Style: "normal",
 			})
 		}
 	}
 
-	return styledTexts
+	return styledTexts, nil
 }
 
-func extractText(line string, startTag string, endTag string) string {
-	start := strings.Index(line, startTag)
-	end := strings.Index(line, endTag)
-	if start >= 0 && end > start {
-		return line[start+len(startTag) : end]
+func parseXML(xmlFile string) (string, error) {
+
+	xmlFile = extractXML(xmlFile)
+
+	byteValue := []byte(xmlFile)
+
+	var ocrPage common.OcrPage
+
+	err := xml.Unmarshal(byteValue, &ocrPage)
+	if err != nil {
+		return "", fmt.Errorf("error unmarshaling XML: %v", err)
 	}
-	return ""
+
+	var fullText strings.Builder
+
+	for _, area := range ocrPage.Areas {
+		var blockText strings.Builder
+		for _, block := range area.Blocks {
+			var paragraphText strings.Builder
+			for _, line := range block.Lines {
+				for _, word := range line.Words {
+					paragraphText.WriteString(word.Text + " ")
+				}
+			}
+			blockText.WriteString(paragraphText.String())
+		}
+		fullText.WriteString(area.Title + " SOL " + blockText.String() + " EOL " + "\n")
+
+	}
+	fmt.Print(fullText.String()) //! remove this
+	return fullText.String(), nil
 }

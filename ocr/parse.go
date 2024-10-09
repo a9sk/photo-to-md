@@ -24,6 +24,26 @@ func parseHOCR(hocr string) ([]common.StyledText, error) {
 				Text:  extractText(line, "<i>", "</i>") + "\n",
 				Style: "italic",
 			})
+		} else if strings.Contains(line, "bbox") {
+
+			bbox := extractBBox(line)
+
+			if bbox.height > 40 {
+				styledTexts = append(styledTexts, common.StyledText{
+					Text:  extractText(line, "SOL", "EOL") + "\n",
+					Style: "title",
+				})
+			} else if bbox.height > 30 {
+				styledTexts = append(styledTexts, common.StyledText{
+					Text:  extractText(line, "SOL", "EOL") + "\n",
+					Style: "semi-title",
+				})
+			} else {
+				styledTexts = append(styledTexts, common.StyledText{
+					Text:  extractText(line, "SOL", "EOL") + "\n",
+					Style: "normal",
+				})
+			}
 		} else {
 			styledTexts = append(styledTexts, common.StyledText{
 				Text:  line + "\n",

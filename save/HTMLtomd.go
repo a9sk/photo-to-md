@@ -16,6 +16,8 @@ func htmlToMarkdown(styledTexts []common.StyledText) string {
 			sb.WriteString("_" + styledText.Text + "_")
 		case "title":
 			sb.WriteString("# " + styledText.Text + "\n")
+		case "semi-title":
+			sb.WriteString("## " + styledText.Text + "\n")
 		default:
 			sb.WriteString(styledText.Text)
 		}

@@ -1,10 +1,11 @@
 package save
 
 import (
+	"photo-to-md/common"
 	"strings"
 )
 
-func htmlToMarkdown(styledTexts []StyledText) string {
+func htmlToMarkdown(styledTexts []common.StyledText) string {
 	var sb strings.Builder
 
 	for _, styledText := range styledTexts {

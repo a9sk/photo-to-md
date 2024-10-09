@@ -3,15 +3,11 @@ package save
 import (
 	"fmt"
 	"os"
+	"photo-to-md/common"
 	"time"
 )
 
-type StyledText struct {
-	Text  string
-	Style string
-}
-
-func SaveMarkdown(text []StyledText) error {
+func SaveMarkdown(text []common.StyledText) error {
 
 	var stringText string
 

@@ -17,7 +17,8 @@ type OcrPage struct {
 type OcrArea struct {
 	XMLName xml.Name `xml:"div"`
 	Blocks  []OcrPar `xml:"p"`
-	BBox    string   `xml:"bbox,attr"`
+	//BBox    string   `xml:"bbox,attr"`
+	Title string `xml:"title,attr"`
 }
 
 type OcrPar struct {

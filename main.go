@@ -17,12 +17,21 @@ func main() {
 
 	mode := flag.String("mode", "capture", "Mode: new capture or path")
 	path := flag.String("path", "", "Path to the image")
+	specific := flag.Bool("s", false, "Fonts and styles included")
 	flag.Parse()
 
 	if *mode == "path" && *path == "" {
 		fmt.Println("What are you doing with this flags...")
 		flag.Usage()
 		os.Exit(1)
+	}
+
+	if *specific == true {
+		err := os.Setenv("ISSPECIFIC", "true")
+		fmt.Println("Doing Specific check")
+		if err != nil {
+			log.Fatalf("Failed to set the ISSPECIFIC env flag: %v", err)
+		}
 	}
 
 	var imagePath string

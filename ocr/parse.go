@@ -9,6 +9,17 @@ import (
 
 func parseHOCR(hocr string) ([]common.StyledText, error) {
 
+	var err error
+	hocr, err = parseXML(hocr)
+	if err != nil {
+		var emptyRet []common.StyledText
+		emptyRet = append(emptyRet, common.StyledText{
+			Text:  "",
+			Style: "",
+		})
+		return emptyRet, fmt.Errorf("%v", err)
+	}
+
 	lines := strings.Split(hocr, "\n")
 
 	var styledTexts []common.StyledText

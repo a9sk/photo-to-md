@@ -29,6 +29,7 @@ type OcrPar struct {
 type OcrLine struct {
 	XMLName xml.Name  `xml:"span"`
 	Words   []OcrWord `xml:"span"`
+	Title   string    `xml:"title,attr"`
 }
 
 type OcrWord struct {

@@ -81,20 +81,37 @@ func parseXML(xmlFile string) (string, error) {
 
 	var fullText strings.Builder
 
+	/*
+		for _, area := range ocrPage.Areas {
+			var blockText strings.Builder
+			for _, block := range area.Blocks {
+				var paragraphText strings.Builder
+				for _, line := range block.Lines {
+					for _, word := range line.Words {
+						paragraphText.WriteString(word.Text + " ")
+					}
+				}
+				blockText.WriteString(paragraphText.String())
+			}
+			fullText.WriteString(area.Title + " SOL " + blockText.String() + " EOL " + "\n")
+
+		}
+	*/
+
 	for _, area := range ocrPage.Areas {
 		var blockText strings.Builder
 		for _, block := range area.Blocks {
 			var paragraphText strings.Builder
 			for _, line := range block.Lines {
+				var lineText strings.Builder
 				for _, word := range line.Words {
-					paragraphText.WriteString(word.Text + " ")
+					lineText.WriteString(word.Text + " ")
 				}
+				paragraphText.WriteString(line.Title + " SOL " + lineText.String() + " EOL " + "\n")
 			}
 			blockText.WriteString(paragraphText.String())
 		}
-		fullText.WriteString(area.Title + " SOL " + blockText.String() + " EOL " + "\n")
-
+		fullText.WriteString(blockText.String())
 	}
-	fmt.Print(fullText.String()) //! remove this
 	return fullText.String(), nil
 }

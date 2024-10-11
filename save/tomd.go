@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"photo-to-md/common"
-	"time"
+	_ "time"
 )
 
 func SaveMarkdown(text []common.StyledText) error {
@@ -17,7 +17,10 @@ func SaveMarkdown(text []common.StyledText) error {
 		stringText = text[0].Text
 	}
 
-	markdownContent := fmt.Sprintf("# Extracted Text - %s\n\n%s", time.Now().Format(time.RFC1123), stringText)
+	// to echo in the file some info about extraction uncomment following line and comment the one after
+	// markdownContent := fmt.Sprintf("# Extracted Text - %s\n\n%s", time.Now().Format(time.RFC1123), stringText)
+
+	markdownContent := stringText
 
 	outputPath := "output.md"
 	err := os.WriteFile(outputPath, []byte(markdownContent), 0644)

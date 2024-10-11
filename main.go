@@ -7,7 +7,7 @@ import (
 	"os"
 
 	//path to dirs
-	"photo-to-md/capture"
+	_ "photo-to-md/capture"
 	"photo-to-md/dependencies"
 	"photo-to-md/ocr"
 	"photo-to-md/save"
@@ -15,7 +15,7 @@ import (
 
 func main() {
 
-	mode := flag.String("mode", "capture", "Mode: new capture or path")
+	mode := flag.String("mode", "path", "Mode: new capture or path (only path in this version)")
 	path := flag.String("path", "", "Path to the image")
 	specific := flag.Bool("s", false, "Fonts and styles included")
 	flag.Parse()
@@ -37,7 +37,10 @@ func main() {
 	var imagePath string
 
 	if *mode == "capture" {
-		imagePath = capture.CaptureImage()
+		/*
+			imagePath = capture.CaptureImage()
+		*/
+		log.Fatalf("Capture option is not supported in this version")
 	} else {
 		imagePath = *path
 	}

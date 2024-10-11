@@ -13,12 +13,15 @@ import (
 func CheckAndInstallDependencies() {
 	fmt.Println("Checking for required dependencies...")
 
-	if !isCommandAvailable("ffmpeg") {
-		fmt.Println("ffmpeg is not installed.")
-		installTool("ffmpeg")
-	} else {
-		fmt.Println("ffmpeg is installed.")
-	}
+	// commenting ffmpeg as it is not used in this version, will uncomment
+	/*
+		if !isCommandAvailable("ffmpeg") {
+			fmt.Println("ffmpeg is not installed.")
+			installTool("ffmpeg")
+		} else {
+			fmt.Println("ffmpeg is installed.")
+		}
+	*/
 
 	if !isCommandAvailable("tesseract") {
 		fmt.Println("Tesseract is not installed.")
@@ -41,8 +44,10 @@ func installTool(toolName string) {
 
 	if response == "yes" || response == "y" {
 		switch toolName {
-		case "ffmpeg":
-			installFFmpeg()
+
+		// case "ffmpeg":
+		//	   installFFmpeg()
+
 		case "tesseract":
 			installTesseract()
 		default:

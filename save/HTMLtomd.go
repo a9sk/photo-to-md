@@ -10,10 +10,12 @@ func htmlToMarkdown(styledTexts []common.StyledText) string {
 
 	for _, styledText := range styledTexts {
 		switch styledText.Style {
+		/* not possible cases with the ocr done.
 		case "bold":
 			sb.WriteString("**" + styledText.Text + "**")
 		case "italic":
 			sb.WriteString("_" + styledText.Text + "_")
+		*/
 		case "title":
 			sb.WriteString("# " + styledText.Text + "\n")
 		case "semi-title":

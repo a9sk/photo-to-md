@@ -32,22 +32,25 @@ func parseHOCR(hocr string) ([]common.StyledText, error) {
 
 	// iterate over each line and check for text styles (bold, italic, bbox).
 	for _, line := range lines {
-		// check if the line contains bold text.
-		if strings.Contains(line, "<b>") {
-			// extract the bold text and append it to styledTexts.
-			styledTexts = append(styledTexts, common.StyledText{
-				Text:  extractText(line, "<b>", "</b>") + "\n",
-				Style: "bold",
-			})
-			// check if the line contains italic text.
-		} else if strings.Contains(line, "<i>") {
-			// extract the italic text and append it to styledTexts.
-			styledTexts = append(styledTexts, common.StyledText{
-				Text:  extractText(line, "<i>", "</i>") + "\n",
-				Style: "italic",
-			})
-			// check if the line contains bbox information.
-		} else if strings.Contains(line, "bbox") {
+		// following checks are useless as Tesseract (for how it is configured)
+		// does not recognize bold/italic text most of the time.
+		// // check if the line contains bold text.
+		// if strings.Contains(line, "<b>") {
+		// 	// extract the bold text and append it to styledTexts.
+		// 	styledTexts = append(styledTexts, common.StyledText{
+		// 		Text:  extractText(line, "<b>", "</b>") + "\n",
+		// 		Style: "bold",
+		// 	})
+		// 	// check if the line contains italic text.
+		// } else if strings.Contains(line, "<i>") {
+		// 	// extract the italic text and append it to styledTexts.
+		// 	styledTexts = append(styledTexts, common.StyledText{
+		// 		Text:  extractText(line, "<i>", "</i>") + "\n",
+		// 		Style: "italic",
+		// 	})
+		// 	// check if the line contains bbox information.
+		// } else
+		if strings.Contains(line, "bbox") {
 
 			// extract the bbox data from the line.
 			bbox := extractBBox(line)

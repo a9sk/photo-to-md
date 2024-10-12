@@ -56,19 +56,19 @@ func parseHOCR(hocr string) ([]common.StyledText, error) {
 			bbox := extractBBox(line)
 
 			// determine the style based on the bbox height.
-			if bbox.height > 40 {
+			if bbox.height > 39 {
 				styledTexts = append(styledTexts, common.StyledText{
-					Text:  extractText(line, "SOL", "EOL") + "\n",
+					Text:  extractText(line, " SOL ", " EOL ") + "\n",
 					Style: "title",
 				})
-			} else if bbox.height > 30 {
+			} else if bbox.height > 28 {
 				styledTexts = append(styledTexts, common.StyledText{
-					Text:  extractText(line, "SOL", "EOL") + "\n",
+					Text:  extractText(line, " SOL ", " EOL ") + "\n",
 					Style: "semi-title",
 				})
 			} else {
 				styledTexts = append(styledTexts, common.StyledText{
-					Text:  extractText(line, "SOL", "EOL") + "\n",
+					Text:  extractText(line, " SOL ", " EOL ") + "\n",
 					Style: "normal",
 				})
 			}

@@ -14,6 +14,7 @@ import (
 )
 
 func main() {
+	flag.Usage = customUsage
 
 	mode := flag.String("mode", "path", "Mode: new capture or path (only path in this version)")
 	path := flag.String("path", "", "Path to the image")
@@ -61,4 +62,29 @@ func main() {
 	}
 
 	fmt.Println("Markdown file created successfully!")
+}
+
+func customUsage() {
+	fmt.Print(`
+	Usage: go run main.go [options] <image-file>
+
+Options:
+  -s                         Use hOCR mode (specific mode), which includes advanced styling and formatting like bold and italic.
+  -mode (path/capture)       Specify the mode to get the input file. If not provided, path has to be passed (in this version it is default).
+  -path                      Specify the path to the input image.
+
+Environment Variables:
+  ISSPECIFIC=true            Set this environment variable to enable hOCR mode automatically (without needing -s (--specific)).
+
+Example Usage:
+  1. Run OCR on an image with default settings:
+     go run main.go your_image.png
+
+  2. Run OCR in hOCR mode for advanced styling:
+     go run main.go -mode path -path your_image.png -s
+
+  3. Display this help message:
+     go run main.go --help
+
+	`)
 }

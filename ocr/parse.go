@@ -3,8 +3,9 @@ package ocr
 import (
 	"encoding/xml"
 	"fmt"
-	"photo-to-md/common"
 	"strings"
+
+	"github.com/a9sk/photo-to-md/common"
 )
 
 // function to parse hocr and return styled text. it extracts different text styles (bold, italic, titles) based on the hocr markup.

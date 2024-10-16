@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"photo-to-md/common"
 	"strings"
+
+	"github.com/a9sk/photo-to-md/common"
 )
 
 // function to perform ocr on an image. returns styled text and an error.

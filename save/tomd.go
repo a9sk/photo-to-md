@@ -3,8 +3,9 @@ package save
 import (
 	"fmt"
 	"os"
-	"photo-to-md/common"
 	_ "time"
+
+	"github.com/a9sk/photo-to-md/common"
 )
 
 func SaveMarkdown(text []common.StyledText) error {

@@ -1,8 +1,9 @@
 package save
 
 import (
-	"photo-to-md/common"
 	"strings"
+
+	"github.com/a9sk/photo-to-md/common"
 )
 
 func htmlToMarkdown(styledTexts []common.StyledText) string {

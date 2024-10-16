@@ -2,9 +2,10 @@ package ocr
 
 import (
 	"path/filepath"
-	"photo-to-md/common"
 	"strings"
 	"testing"
+
+	"github.com/a9sk/photo-to-md/common"
 )
 
 var expected = []common.StyledText{

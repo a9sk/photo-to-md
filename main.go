@@ -7,10 +7,10 @@ import (
 	"os"
 
 	//path to dirs
-	_ "photo-to-md/capture"
-	"photo-to-md/dependencies"
-	"photo-to-md/ocr"
-	"photo-to-md/save"
+	_ "github.com/a9sk/photo-to-md/capture"
+	"github.com/a9sk/photo-to-md/dependencies"
+	"github.com/a9sk/photo-to-md/ocr"
+	"github.com/a9sk/photo-to-md/save"
 )
 
 func main() {
